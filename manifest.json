@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Text Spacer",
+  "version": "1.0",
+  "description": "Insert space between English and Japanese characters.",
+  "permissions": ["contextMenus"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
