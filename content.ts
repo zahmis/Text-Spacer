@@ -14,19 +14,31 @@ function insertSpaceBetweenLanguages(text: string): string {
   return text;
 }
 
+let newText = "";
+
 function processSelectedText(): void {
   const selection = window.getSelection();
   const selectedText = selection?.toString();
 
   if (selectedText) {
-    const newText = insertSpaceBetweenLanguages(selectedText);
+    newText = insertSpaceBetweenLanguages(selectedText);
     navigator.clipboard.writeText(newText);
   }
 }
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "processSelectedText") {
-    processSelectedText();
-    sendResponse({ success: true });
+chrome.runtime.onMessage.addListener(
+  (
+    request: any,
+    sender: chrome.runtime.MessageSender,
+    sendResponse: (response?: any) => void
+  ) => {
+    if (request.action === "processSelectedText") {
+      processSelectedText();
+      sendResponse({ success: true, processedText: newText });
+    }
+
+    if (request.action === "getProcessedText") {
+      sendResponse({ success: true, processedText: newText });
+    }
   }
-});
+);

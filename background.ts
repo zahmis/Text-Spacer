@@ -1,35 +1,36 @@
 chrome.contextMenus.create({
   id: "textSpacer",
-  title: "Insert space between English and Japanese",
+  title: "Spacer",
   contexts: ["selection"],
 });
 
-chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-  if (info.menuItemId === "textSpacer") {
-    try {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        const activeTab = tabs[0];
-        if (activeTab) {
-          chrome.tabs.sendMessage(
-            activeTab.id!,
-            { action: "processSelectedText" },
-            (response) => {
-              if (chrome.runtime.lastError) {
-                console.error(
-                  "Error sending message:",
-                  chrome.runtime.lastError
-                );
-              } else {
-                console.log("Message sent successfully:", response);
-              }
-            }
-          );
-        } else {
-          console.error("Active tab is undefined.");
+chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
+  if (info.menuItemId !== "textSpacer") return;
+
+  try {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const activeTab = tabs[0];
+      if (!activeTab) return console.error("Active tab is undefined.");
+
+      chrome.tabs.sendMessage(
+        activeTab.id!,
+        { action: "processSelectedText" },
+        (_response) => {
+          if (chrome.runtime.lastError)
+            return console.error(
+              "Error runtime lastError:",
+              chrome.runtime.lastError
+            );
+
+          // 成功したら、選択したテキストを表示する
+          chrome.runtime.sendMessage({
+            action: "updateResult",
+            text: info.selectionText,
+          });
         }
-      });
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
+      );
+    });
+  } catch (err) {
+    console.error("AddListener Error:", err);
   }
 });
