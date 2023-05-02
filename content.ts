@@ -1,4 +1,4 @@
-function insertSpaceBetweenLanguages(text) {
+function insertSpaceBetweenLanguages(text: string): string {
   text = text.replace(
     /([a-zA-Z])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
     "$1 $2"
@@ -14,9 +14,9 @@ function insertSpaceBetweenLanguages(text) {
   return text;
 }
 
-function processSelectedText() {
+function processSelectedText(): void {
   const selection = window.getSelection();
-  const selectedText = selection.toString();
+  const selectedText = selection?.toString();
 
   if (selectedText) {
     const newText = insertSpaceBetweenLanguages(selectedText);

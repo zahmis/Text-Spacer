@@ -1,0 +1,12 @@
+{
+  "name": "spacer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/zahmis/spacer.git",
+  "author": "zahmis <meda829ratteru86@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.234",
+    "typescript": "^5.0.4"
+  }
+}
