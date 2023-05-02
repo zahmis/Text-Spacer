@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 chrome.contextMenus.create({
     id: "textSpacer",
-    title: "Insert space between English and Japanese",
+    title: "Spacer",
     contexts: ["selection"],
 });
 chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __awaiter(void 0, void 0, void 0, function () {
