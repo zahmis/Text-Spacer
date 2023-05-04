@@ -3,7 +3,7 @@
   "name": "Text Spacer",
   "version": "0.0.2",
   "description": "Insert space between English and Japanese characters.",
-  "permissions": ["activeTab", "contextMenus", "scripting"],
+  "permissions": ["activeTab", "contextMenus"],
   "action": {
     "default_title": "Text Spacer",
     "default_popup": "popup.html"
