@@ -14,7 +14,7 @@ function processSelectedText() {
         navigator.clipboard.writeText(newText);
     }
 }
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, _sender, sendResponse) {
     if (request.action === "processSelectedText") {
         processSelectedText();
         sendResponse({ success: true, processedText: newText });

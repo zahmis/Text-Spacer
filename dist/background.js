@@ -49,13 +49,13 @@ chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __await
                 var activeTab = tabs[0];
                 if (!activeTab)
                     return console.error("Active tab is undefined.");
-                chrome.tabs.sendMessage(activeTab.id, { action: "processSelectedText" }, function (_response) {
+                chrome.tabs.sendMessage(activeTab.id, { action: "processSelectedText" }, function (response) {
                     if (chrome.runtime.lastError)
                         return console.error("Error runtime lastError:", chrome.runtime.lastError);
                     // 成功したら、選択したテキストを表示する
                     chrome.runtime.sendMessage({
                         action: "updateResult",
-                        text: info.selectionText,
+                        text: response.processedText,
                     });
                 });
             });

@@ -29,7 +29,7 @@ function processSelectedText(): void {
 chrome.runtime.onMessage.addListener(
   (
     request: any,
-    sender: chrome.runtime.MessageSender,
+    _sender: chrome.runtime.MessageSender,
     sendResponse: (response?: any) => void
   ) => {
     if (request.action === "processSelectedText") {

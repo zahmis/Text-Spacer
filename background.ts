@@ -15,7 +15,7 @@ chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
       chrome.tabs.sendMessage(
         activeTab.id!,
         { action: "processSelectedText" },
-        (_response) => {
+        (response) => {
           if (chrome.runtime.lastError)
             return console.error(
               "Error runtime lastError:",
@@ -25,7 +25,7 @@ chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
           // 成功したら、選択したテキストを表示する
           chrome.runtime.sendMessage({
             action: "updateResult",
-            text: info.selectionText,
+            text: response.processedText,
           });
         }
       );

@@ -22,7 +22,10 @@ function updateResult(): void {
         if (response.success) {
           const resultElement = document.getElementById("result");
           if (resultElement && response.processedText)
-            resultElement.textContent = response.processedText;
+            resultElement.innerHTML = response.processedText.replace(
+              /\n/g,
+              "<br>"
+            );
         }
       }
     );
