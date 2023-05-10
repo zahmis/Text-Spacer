@@ -9,9 +9,11 @@ If you don't know how to use it, please raise an Issue and ask a question.
 # How to use
 
 - Before
+
 きのうはありがとうございました！
 とてもおいしいdinnerでした！
 
 - After
+
 きのうはありがとうございました！
 とてもおいしい dinner でした！
