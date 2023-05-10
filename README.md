@@ -8,10 +8,10 @@ If you don't know how to use it, please raise an Issue and ask a question.
 
 # How to use
 
-Before
+- Before
 きのうはありがとうございました！
 とてもおいしいdinnerでした！
 
-After
+- After
 きのうはありがとうございました！
 とてもおいしい dinner でした！
