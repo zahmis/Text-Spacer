@@ -16,7 +16,6 @@ function insertSpace(text: string): string {
 function selectedText(): string {
   const selection = window.getSelection();
   const selectedText = selection?.toString();
-
   if (!selectedText) return "";
 
   const newText = insertSpace(selectedText);
@@ -45,3 +44,43 @@ chrome.runtime.onMessage.addListener(
     }
   }
 );
+
+let lastSelectedText = "";
+document.addEventListener("mousedown", function (event) {
+  const exist = document.getElementById("TextSpacer-0.0.4");
+  if (exist) exist.remove();
+
+  lastSelectedText = window.getSelection()?.toString().trim() || "";
+});
+
+document.addEventListener("mouseup", function (event) {
+  const exist = document.getElementById("TextSpacer-0.0.4");
+  if (exist) return;
+
+  // 選択範囲を取得
+  const selection = window.getSelection()?.toString().trim();
+  if (!selection) return;
+  if (lastSelectedText === selection) return;
+
+  const x = event?.pageX;
+  const y = event?.pageY;
+  if (x == null || y == null) return;
+
+  // アイコンを作成
+  const icon = document.createElement("img");
+  icon.id = "TextSpacer-0.0.4";
+  icon.src = chrome.runtime.getURL("configTS.png");
+  icon.style.position = "absolute";
+  icon.style.cursor = "pointer";
+  icon.style.left = `${x - 30}px`;
+  icon.style.top = `${y - 5}px`;
+
+  document.body.appendChild(icon);
+
+  // アイコンをクリックしたときの処理
+  icon.addEventListener("click", function (event) {
+    console.info("icon click");
+    this.remove();
+    return;
+  });
+});

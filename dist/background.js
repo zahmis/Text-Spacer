@@ -1,6 +1,6 @@
 "use strict";
-// 拡張機能ロード時の初回実行
 // 全体の処理
+// 拡張機能ロード時の初回実行
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,18 +42,19 @@ chrome.contextMenus.create({
     title: "Spacer",
     contexts: ["selection"],
 });
+// メニューを右クリックの特定の項目(Text Spacer)を押したときの処理
 chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         if (info.menuItemId !== "textSpacer")
-            return [2 /*return*/];
+            return [2 /*return*/, console.error("Back Error: Invalid menu id.")];
         try {
             chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
                 var activeTab = tabs[0];
-                if (!activeTab)
-                    return console.error("Active tab is undefined.");
+                if (activeTab == null)
+                    return console.error("Back Error: Active tab is null.");
                 chrome.tabs.sendMessage(activeTab.id, { action: "processSelectedText" }, function (response) {
                     if (chrome.runtime.lastError)
-                        return console.error("Error runtime lastError:", chrome.runtime.lastError);
+                        return console.error("Back Runtime lastError:", chrome.runtime.lastError);
                     // 成功したら、選択したテキストを表示する
                     chrome.runtime.sendMessage({
                         action: "updateResult",
@@ -63,8 +64,9 @@ chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __await
             });
         }
         catch (err) {
-            console.error("AddListener Error:", err);
+            console.error("Back AddListener Error:", err);
         }
         return [2 /*return*/];
     });
 }); });
+//

@@ -2,6 +2,13 @@
   "manifest_version": 3,
   "name": "Text Spacer",
   "version": "0.0.4",
+  "author": "zamis",
+  "web_accessible_resources": [
+    {
+      "resources": ["configTS.png"],
+      "matches": ["<all_urls>"]
+    }
+  ],
   "description": "Insert space between English and Japanese characters.",
   "permissions": ["activeTab", "contextMenus"],
   "action": {

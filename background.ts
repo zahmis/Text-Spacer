@@ -1,5 +1,5 @@
-// 拡張機能ロード時の初回実行
 // 全体の処理
+// 拡張機能ロード時の初回実行
 
 chrome.contextMenus.create({
   id: "textSpacer",
@@ -7,13 +7,16 @@ chrome.contextMenus.create({
   contexts: ["selection"],
 });
 
+// メニューを右クリックの特定の項目(Text Spacer)を押したときの処理
 chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
-  if (info.menuItemId !== "textSpacer") return;
+  if (info.menuItemId !== "textSpacer")
+    return console.error("Back Error: Invalid menu id.");
 
   try {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0];
-      if (!activeTab) return console.error("Active tab is undefined.");
+      if (activeTab == null)
+        return console.error("Back Error: Active tab is null.");
 
       chrome.tabs.sendMessage(
         activeTab.id!,
@@ -21,7 +24,7 @@ chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
         (response) => {
           if (chrome.runtime.lastError)
             return console.error(
-              "Error runtime lastError:",
+              "Back Runtime lastError:",
               chrome.runtime.lastError
             );
 
@@ -34,6 +37,8 @@ chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
       );
     });
   } catch (err) {
-    console.error("AddListener Error:", err);
+    console.error("Back AddListener Error:", err);
   }
 });
+
+//
