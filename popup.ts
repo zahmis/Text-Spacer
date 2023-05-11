@@ -6,27 +6,33 @@ interface ProcessedTextResponse {
 function updateResult(): void {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const activeTab = tabs[0];
-    if (!activeTab) return console.error("Active tab is undefined.");
+    if (activeTab == null)
+      return console.error("Popup Error: Active tab is null.");
+
+    if (activeTab.id == null)
+      return console.error("Popup Error: Active id is null.");
 
     chrome.tabs.sendMessage(
-      activeTab.id!,
+      activeTab.id,
       { action: "getProcessedText" },
       (response: ProcessedTextResponse) => {
         if (chrome.runtime.lastError) {
           return console.error(
-            "Error runtime lastError:",
+            "Popup Runtime lastError:",
             chrome.runtime.lastError
           );
         }
+        if (!response.success)
+          return console.error("Popup Error: Response Failed.");
 
-        if (response.success) {
-          const resultElement = document.getElementById("result");
-          if (resultElement && response.processedText)
-            resultElement.innerHTML = response.processedText.replace(
-              /\n/g,
-              "<br>"
-            );
-        }
+        const resultElement = document.getElementById("result");
+        if (!resultElement)
+          return console.error("Popup Error: result element is null.");
+
+        if (!response.processedText)
+          return console.error("Popup Error: processedText is null.");
+
+        resultElement.innerHTML = response.processedText.replace(/\n/g, "<br>");
       }
     );
   });
