@@ -1,29 +1,28 @@
-function insertSpaceBetweenLanguages(text: string): string {
-  text = text.replace(
-    /([a-zA-Z])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
-    "$1 $2"
+// web page のコンテキストで実行される
+
+const regexPatterns = [
+  /([a-zA-Z])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
+  /([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])([a-zA-Z0-9])/g,
+  /([a-zA-Z0-9])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
+];
+
+function insertSpace(text: string): string {
+  return regexPatterns.reduce(
+    (currentText, pattern) => currentText.replace(pattern, "$1 $2"),
+    text // 初期値
   );
-  text = text.replace(
-    /([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])([a-zA-Z0-9])/g,
-    "$1 $2"
-  );
-  text = text.replace(
-    /([a-zA-Z0-9])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
-    "$1 $2"
-  );
-  return text;
 }
 
-let newText = "";
-
-function processSelectedText(): void {
+function selectedText(): string {
   const selection = window.getSelection();
   const selectedText = selection?.toString();
 
-  if (selectedText) {
-    newText = insertSpaceBetweenLanguages(selectedText);
-    navigator.clipboard.writeText(newText);
-  }
+  if (!selectedText) return "";
+
+  const newText = insertSpace(selectedText);
+  navigator.clipboard.writeText(newText);
+
+  return newText;
 }
 
 chrome.runtime.onMessage.addListener(
@@ -32,13 +31,17 @@ chrome.runtime.onMessage.addListener(
     _sender: chrome.runtime.MessageSender,
     sendResponse: (response?: any) => void
   ) => {
-    if (request.action === "processSelectedText") {
-      processSelectedText();
-      sendResponse({ success: true, processedText: newText });
-    }
+    switch (request.action) {
+      case "processSelectedText":
+        sendResponse({ success: true, processedText: selectedText() });
+        break;
 
-    if (request.action === "getProcessedText") {
-      sendResponse({ success: true, processedText: newText });
+      case "getProcessedText":
+        sendResponse({ success: true, processedText: selectedText() });
+        break;
+
+      default:
+        sendResponse({ success: false });
     }
   }
 );

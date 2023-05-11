@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Text Spacer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Insert space between English and Japanese characters.",
   "permissions": ["activeTab", "contextMenus"],
   "action": {

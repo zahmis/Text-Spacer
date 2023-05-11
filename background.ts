@@ -1,3 +1,6 @@
+// 拡張機能ロード時の初回実行
+// 全体の処理
+
 chrome.contextMenus.create({
   id: "textSpacer",
   title: "Spacer",
