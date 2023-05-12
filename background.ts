@@ -1,10 +1,13 @@
-// 全体の処理
-// 拡張機能ロード時の初回実行
-
-chrome.contextMenus.create({
-  id: "textSpacer",
-  title: "Spacer",
-  contexts: ["selection"],
+chrome.contextMenus.remove("textSpacer", function () {
+  if (chrome.runtime.lastError) {
+    console.log(chrome.runtime.lastError.message);
+  } else {
+    chrome.contextMenus.create({
+      id: "textSpacer",
+      title: "Spacer",
+      contexts: ["selection"],
+    });
+  }
 });
 
 // メニューを右クリックの特定の項目(Text Spacer)を押したときの処理
@@ -18,11 +21,11 @@ chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
       if (activeTab == null)
         return console.error("Back Error: Active tab is null.");
 
+      // content.tsにメッセージを送信
       chrome.tabs.sendMessage(
         activeTab.id!,
         { action: "processSelectedText" },
         () => {
-          console.log("Back ");
           if (chrome.runtime.lastError) {
             return console.error(
               "Back Runtime lastError:",

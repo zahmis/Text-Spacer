@@ -1,5 +1,4 @@
 "use strict";
-// web page のコンテキストで実行される
 var regexPatterns = [
     /([a-zA-Z])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
     /([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])([a-zA-Z0-9])/g,
@@ -51,8 +50,6 @@ document.addEventListener("mouseup", function (event) {
         return;
     var x = event === null || event === void 0 ? void 0 : event.pageX;
     var y = event === null || event === void 0 ? void 0 : event.pageY;
-    if (x == null || y == null)
-        return;
     // アイコンを作成
     var icon = document.createElement("img");
     icon.id = "TextSpacer-0.0.4";
@@ -62,10 +59,8 @@ document.addEventListener("mouseup", function (event) {
     icon.style.left = "".concat(x - 30, "px");
     icon.style.top = "".concat(y - 5, "px");
     document.body.appendChild(icon);
-    // アイコンをクリックしたときの処理
-    icon.addEventListener("click", function (event) {
-        console.info("icon click");
-        this.remove();
-        return;
+    icon.addEventListener("mousedown", function () {
+        console.log("mousedown");
+        selectedText();
     });
 });

@@ -29,6 +29,7 @@ function updatePopup(): void {
         if (!resultElement)
           return console.error("Popup Error: result element is null.");
 
+        console.log(response, 32);
         if (!response.processedText)
           return console.error("Popup Error: processedText is null.");
 

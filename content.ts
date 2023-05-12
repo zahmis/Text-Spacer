@@ -1,5 +1,3 @@
-// web page のコンテキストで実行される
-
 const regexPatterns = [
   /([a-zA-Z])([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])/g,
   /([\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF])([a-zA-Z0-9])/g,
@@ -64,7 +62,6 @@ document.addEventListener("mouseup", function (event) {
 
   const x = event?.pageX;
   const y = event?.pageY;
-  if (x == null || y == null) return;
 
   // アイコンを作成
   const icon = document.createElement("img");
@@ -77,10 +74,8 @@ document.addEventListener("mouseup", function (event) {
 
   document.body.appendChild(icon);
 
-  // アイコンをクリックしたときの処理
-  icon.addEventListener("click", function (event) {
-    console.info("icon click");
-    this.remove();
-    return;
+  icon.addEventListener("mousedown", () => {
+    console.log("mousedown");
+    selectedText();
   });
 });

@@ -15,6 +15,7 @@ function updatePopup() {
             var resultElement = document.getElementById("result");
             if (!resultElement)
                 return console.error("Popup Error: result element is null.");
+            console.log(response, 32);
             if (!response.processedText)
                 return console.error("Popup Error: processedText is null.");
             resultElement.innerHTML = response.processedText.replace(/\n/g, "<br>");

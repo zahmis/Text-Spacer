@@ -1,6 +1,4 @@
 "use strict";
-// 全体の処理
-// 拡張機能ロード時の初回実行
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,10 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-chrome.contextMenus.create({
-    id: "textSpacer",
-    title: "Spacer",
-    contexts: ["selection"],
+chrome.contextMenus.remove("textSpacer", function () {
+    if (chrome.runtime.lastError) {
+        console.log(chrome.runtime.lastError.message);
+    }
+    else {
+        chrome.contextMenus.create({
+            id: "textSpacer",
+            title: "Spacer",
+            contexts: ["selection"],
+        });
+    }
 });
 // メニューを右クリックの特定の項目(Text Spacer)を押したときの処理
 chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __awaiter(void 0, void 0, void 0, function () {
@@ -52,8 +57,8 @@ chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __await
                 var activeTab = tabs[0];
                 if (activeTab == null)
                     return console.error("Back Error: Active tab is null.");
+                // content.tsにメッセージを送信
                 chrome.tabs.sendMessage(activeTab.id, { action: "processSelectedText" }, function () {
-                    console.log("Back ");
                     if (chrome.runtime.lastError) {
                         return console.error("Back Runtime lastError:", chrome.runtime.lastError);
                     }
