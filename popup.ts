@@ -3,7 +3,7 @@ interface ProcessedTextResponse {
   processedText?: string;
 }
 
-function updateResult(): void {
+function updatePopup(): void {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const activeTab = tabs[0];
     if (activeTab == null)
@@ -38,4 +38,5 @@ function updateResult(): void {
   });
 }
 
-document.addEventListener("DOMContentLoaded", updateResult);
+// 画面を開いたときに実行される
+document.addEventListener("DOMContentLoaded", updatePopup);

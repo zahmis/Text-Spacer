@@ -21,18 +21,14 @@ chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
       chrome.tabs.sendMessage(
         activeTab.id!,
         { action: "processSelectedText" },
-        (response) => {
-          if (chrome.runtime.lastError)
+        () => {
+          console.log("Back ");
+          if (chrome.runtime.lastError) {
             return console.error(
               "Back Runtime lastError:",
               chrome.runtime.lastError
             );
-
-          // 成功したら、選択したテキストを表示する
-          chrome.runtime.sendMessage({
-            action: "updateResult",
-            text: response.processedText,
-          });
+          }
         }
       );
     });

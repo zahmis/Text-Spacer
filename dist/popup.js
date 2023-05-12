@@ -1,5 +1,5 @@
 "use strict";
-function updateResult() {
+function updatePopup() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         var activeTab = tabs[0];
         if (activeTab == null)
@@ -21,4 +21,5 @@ function updateResult() {
         });
     });
 }
-document.addEventListener("DOMContentLoaded", updateResult);
+// 画面を開いたときに実行される
+document.addEventListener("DOMContentLoaded", updatePopup);

@@ -52,14 +52,11 @@ chrome.contextMenus.onClicked.addListener(function (info, _tab) { return __await
                 var activeTab = tabs[0];
                 if (activeTab == null)
                     return console.error("Back Error: Active tab is null.");
-                chrome.tabs.sendMessage(activeTab.id, { action: "processSelectedText" }, function (response) {
-                    if (chrome.runtime.lastError)
+                chrome.tabs.sendMessage(activeTab.id, { action: "processSelectedText" }, function () {
+                    console.log("Back ");
+                    if (chrome.runtime.lastError) {
                         return console.error("Back Runtime lastError:", chrome.runtime.lastError);
-                    // 成功したら、選択したテキストを表示する
-                    chrome.runtime.sendMessage({
-                        action: "updateResult",
-                        text: response.processedText,
-                    });
+                    }
                 });
             });
         }
