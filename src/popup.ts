@@ -1,9 +1,6 @@
-interface ProcessedTextResponse {
-  success: boolean;
-  processedText?: string;
-}
+import { SendMessageResponse } from "./types";
 
-function updatePopup(): void {
+const updatePopup = (): void => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const activeTab = tabs[0];
     if (activeTab == null)
@@ -15,14 +12,14 @@ function updatePopup(): void {
     chrome.tabs.sendMessage(
       activeTab.id,
       { action: "getProcessedText" },
-      (response: ProcessedTextResponse) => {
+      (response: SendMessageResponse) => {
         if (chrome.runtime.lastError) {
           return console.error(
             "Popup Runtime lastError:",
             chrome.runtime.lastError
           );
         }
-        if (!response.success)
+        if (!response.isSentMessage)
           return console.error("Popup Error: Response Failed.");
 
         const resultElement = document.getElementById("result");
@@ -36,7 +33,7 @@ function updatePopup(): void {
       }
     );
   });
-}
+};
 
 // 画面を開いたときに実行される
 document.addEventListener("DOMContentLoaded", updatePopup);

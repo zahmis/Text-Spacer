@@ -1,17 +1,11 @@
-chrome.contextMenus.remove("textSpacer", function () {
-  if (chrome.runtime.lastError) {
-    console.log(chrome.runtime.lastError.message);
-  } else {
-    chrome.contextMenus.create({
-      id: "textSpacer",
-      title: "Spacer",
-      contexts: ["selection"],
-    });
-  }
+chrome.contextMenus.create({
+  id: "textSpacer",
+  title: "Text Spacer",
+  contexts: ["selection"],
 });
 
 // メニューを右クリックの特定の項目(Text Spacer)を押したときの処理
-chrome.contextMenus.onClicked.addListener(async (info, _tab) => {
+chrome.contextMenus.onClicked.addListener(async (info) => {
   if (info.menuItemId !== "textSpacer")
     return console.error("Back Error: Invalid menu id.");
 
