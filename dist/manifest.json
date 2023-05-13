@@ -5,7 +5,7 @@
   "author": "zamis",
   "web_accessible_resources": [
     {
-      "resources": ["configTS.png"],
+      "resources": ["configTS.svg"],
       "matches": ["<all_urls>"]
     }
   ],

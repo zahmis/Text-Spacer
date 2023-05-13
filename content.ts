@@ -11,14 +11,20 @@ function insertSpace(text: string): string {
   );
 }
 
+let lastSelectedText = "";
 function selectedText(): string {
   const selection = window.getSelection();
   const selectedText = selection?.toString();
-  if (!selectedText) return "";
 
-  const newText = insertSpace(selectedText);
+  let newText = "";
+  if (!selectedText) {
+    newText = insertSpace(lastSelectedText);
+    navigator.clipboard.writeText(newText);
+    return newText;
+  }
+
+  newText = insertSpace(selectedText);
   navigator.clipboard.writeText(newText);
-
   return newText;
 }
 
@@ -32,22 +38,18 @@ chrome.runtime.onMessage.addListener(
       case "processSelectedText":
         sendResponse({ success: true, processedText: selectedText() });
         break;
-
       case "getProcessedText":
         sendResponse({ success: true, processedText: selectedText() });
         break;
-
       default:
         sendResponse({ success: false });
     }
   }
 );
 
-let lastSelectedText = "";
-document.addEventListener("mousedown", function (event) {
+document.addEventListener("mousedown", () => {
   const exist = document.getElementById("TextSpacer-0.0.4");
   if (exist) exist.remove();
-
   lastSelectedText = window.getSelection()?.toString().trim() || "";
 });
 
@@ -66,7 +68,7 @@ document.addEventListener("mouseup", function (event) {
   // アイコンを作成
   const icon = document.createElement("img");
   icon.id = "TextSpacer-0.0.4";
-  icon.src = chrome.runtime.getURL("configTS.png");
+  icon.src = chrome.runtime.getURL("configTS.svg");
   icon.style.position = "absolute";
   icon.style.cursor = "pointer";
   icon.style.left = `${x - 30}px`;
