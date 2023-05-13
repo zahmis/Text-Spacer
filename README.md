@@ -29,6 +29,6 @@ https://github.com/zahmis/Text-Spacer/assets/57100766/976c7a76-c6c6-4fae-a8a8-28
 とてもおいしい dinner でした！
 
 
-### If you want to always use the latest
+### If you want to use the latest
 Please use the dist file provided.
 https://github.com/zahmis/Text-Spacer/tree/master/dist
