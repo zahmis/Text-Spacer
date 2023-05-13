@@ -18,7 +18,7 @@ https://github.com/zahmis/Text-Spacer/assets/57100766/49f36d8e-124e-4e9c-9f54-66
 
 3. Use right click action.
 
-Uploading right clicked action.mov…
+https://github.com/zahmis/Text-Spacer/assets/57100766/976c7a76-c6c6-4fae-a8a8-28fb9534c0c2
 
 ### Before (Raw selected text)
 きのうはありがとうございました！
