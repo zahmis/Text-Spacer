@@ -33,5 +33,3 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
     console.error("Back AddListener Error:", err);
   }
 });
-
-//
