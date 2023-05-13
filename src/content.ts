@@ -50,13 +50,13 @@ chrome.runtime.onMessage.addListener(
 );
 
 document.addEventListener("mousedown", () => {
-  const exist = document.getElementById("TextSpacer-0.0.4");
+  const exist = document.getElementById("TextSpacer-0.0.5");
   if (exist) exist.remove();
   lastSelectedText = window.getSelection()?.toString().trim() || "";
 });
 
 document.addEventListener("mouseup", function (event) {
-  const exist = document.getElementById("TextSpacer-0.0.4");
+  const exist = document.getElementById("TextSpacer-0.0.5");
   if (exist) return;
 
   // 選択範囲を取得
@@ -69,7 +69,7 @@ document.addEventListener("mouseup", function (event) {
 
   // アイコンを作成
   const icon = document.createElement("img");
-  icon.id = "TextSpacer-0.0.4";
+  icon.id = "TextSpacer-0.0.5";
   icon.src = chrome.runtime.getURL("configTS.svg");
   icon.style.position = "absolute";
   icon.style.cursor = "pointer";
