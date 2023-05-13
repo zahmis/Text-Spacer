@@ -14,7 +14,11 @@ https://github.com/zahmis/Text-Spacer/assets/57100766/22382119-9922-427d-9add-c7
 
 2. Check spaced text.
 
-3. Use right click action
+https://github.com/zahmis/Text-Spacer/assets/57100766/49f36d8e-124e-4e9c-9f54-66278121850e
+
+3. Use right click action.
+
+Uploading right clicked action.mov…
 
 ### Before (Raw selected text)
 きのうはありがとうございました！
